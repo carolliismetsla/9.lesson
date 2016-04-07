@@ -1,43 +1,68 @@
 <?php
-require_once("functions.php");
 
-	//login button clicked
+	require_once("functions.php");
+
+
+
+	if(isset($_SESSION["user_id"])){
+		//redirect user to restricted page
+		header("Location: restrict.php");
+
+	}
+
+
+//---------------------------------------------------------------------------------//
+
+	//login=smth is in the URL
+	//login button clocked
 	if(isset($_POST["login"])){
 
 		//login
 		echo "logging in...";
 
-		//the username and password are not empty
-		if(!empty($_POST["username"]) && !empty($_POST["password"])){
+			//the fields are not empty
+			if( !empty($_POST["username"]) && !empty($_POST["password"]) ){
 
-		//save to db
-	login($_POST["username"], $_POST["password"]);
+				//save to db
 
-		}else{
-		  echo "both fields are required!";
-		}
+				login($_POST["username"], $_POST["password"]);
 
-	//signup button clicked
-}else if(isset($_POST["signup"])){
+			}else{
+
+				echo "both fields are rquired!";
+
+			}
+
+//---------------------------------------------------------------------------------//
+
+
+	//signup button clocked
+	}else if(isset($_POST["signup"])){
 
 		//signup
 		echo "signing up...";
 
+			//the fields are not empty
+			if( !empty($_POST["username"]) && !empty($_POST["password"]) ){
+
+				//save to db
+
+				signup($_POST["username"], $_POST["password"]);
+
+			}else{
+
+				echo "both fields are rquired!";
+
+		}
 
 
-//the username and password are not empty
-if(!empty($_POST["username"]) && !empty($_POST["password"])){
-
-//save to db
-signup($_POST["username"], $_POST["password"]);
-
-}else{
-  echo "both fields are required!";
-}
 	}
+
+//---------------------------------------------------------------------------------//
 
 
 ?>
+
 
 
 <h1>Log in</h1>
@@ -46,7 +71,7 @@ signup($_POST["username"], $_POST["password"]);
 	<input type="text" placeholder="username" name="username">
 	<input type="password" placeholder="password" name="password">
 
-	<input type="submit" name="login" value="Log in"
+	<input type="submit" name="login" value="Log in">
 
 
 
@@ -56,6 +81,7 @@ signup($_POST["username"], $_POST["password"]);
 
 <h1>Sign up</h1>
 <form method="POST">
+<!-- <form>-->
 
 	<input type="text" placeholder="username" name="username">
 	<input type="password" placeholder="password" name="password">
